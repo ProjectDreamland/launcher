@@ -4,6 +4,10 @@ import {
 }
 from 'material-ui'
 import ThemeManager from 'material-ui/lib/styles/theme-manager'
+import {
+	getCurrentWindow
+}
+from 'remote'
 import Theme from '../theme'
 
 import AppStore from '../stores/appStore'
@@ -79,7 +83,7 @@ export default class Settings extends React.Component {
 
         		<div className='bottom'>
         			<RaisedButton style={{ margin: 12, float: 'right', marginLeft: 15}} label='Launch' />
-        			<RaisedButton label='Quit' style={{ margin: 12, float: 'right', marginRight: 0}} />
+        			<RaisedButton onClick={() => getCurrentWindow().close()} label='Quit' style={{ margin: 12, float: 'right', marginRight: 0}} />
         		</div>
             </div>
 		)

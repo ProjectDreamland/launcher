@@ -1,0 +1,39 @@
+html,
+body {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 200;
+    color: white;
+    height: 100vh;
+    overflow: none;
+    position: fixed;
+    
+    -webkit-font-smoothing: subpixel-antialiased;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    cursor: default;
+    -webkit-font-smoothing: subpixel-antialiased;
+    text-rendering: optimizelegibility;
+    img {
+        pointer-events: none;
+    }
+}
+
+
+*::-webkit-scrollbar{
+    width: 9px;
+    height: 9px;
+}
+*::-webkit-scrollbar-thumb {
+    background-color:rgb(160, 160, 160);
+}
+*::-webkit-scrollbar-track{
+    background-color: rgb(235, 235, 235);
+} 
+*::-webkit-scrollbar-thumb:hover{
+    background-color:rgb(145, 145, 145);
+}
+*::-webkit-scrollbar-thumb:active{
+    background-color:rgb(130, 130, 130);
+}
+

@@ -1,0 +1,17 @@
+.content {
+	margin: 6px 0;
+    padding: 0 9px 6px 30px;
+    left: 280px;
+	width: calc(100vw - 320px);
+    height: calc(100vh - 18px);
+    position: absolute;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+
+.content .bottom{
+	bottom: 0;
+	position: absolute;
+	right: 0;
+}

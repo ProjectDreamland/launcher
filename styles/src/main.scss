@@ -1,0 +1,12 @@
+@import 'electron';
+@import 'sidebar';
+@import 'content';
+
+// Fuck you dropdown, I win this round
+body > div:last-of-type:not(#app) {
+    margin-right: 27px;
+    overflow: hidden;
+}
+body > div:last-of-type:not(#app) > div {
+    overflow: hidden !important;
+}

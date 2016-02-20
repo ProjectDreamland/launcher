@@ -1,9 +1,5 @@
 import app from 'app'
 import BrowserWindow from 'browser-window'
-import {
-    Menu, Tray
-}
-from 'electron'
 import path from 'path'
 
 

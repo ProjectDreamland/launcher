@@ -10,7 +10,7 @@ module.exports = function(grunt) {
     require('load-grunt-tasks')(grunt);
     var target = grunt.option('target') || 'development';
 
-    var BASENAME = 'Photon-Wallpaper';
+    var BASENAME = 'Area51-Launcher';
     var arch = grunt.option('arch') ? grunt.option('arch') : 'ia32';
 
     var platform = grunt.option('platform') ? grunt.option('platform') : process.platform;
@@ -148,7 +148,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('clean:all', ['clean:build', 'clean:dist', 'clean:release']);
 
-    grunt.registerTask('release', ['clean:build', 'babel', 'sass', 'copy:build', 'npm-command:release', 'electron:release']);
+    grunt.registerTask('release', ['clean:build', 'babel', 'sass', 'copy:build', 'copy:game', 'npm-command:release', 'electron:release']);
 
     process.on('SIGINT', function() {
         grunt.task.run(['shell:electron:kill'])

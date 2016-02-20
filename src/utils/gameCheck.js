@@ -1,9 +1,8 @@
 import fs from 'fs'
 import path from 'path'
-import xxhashjs from 'xxhashjs'
+import md5File from 'md5-file'
 import request from 'request'
 import _ from 'lodash'
-import Promise from 'bluebird'
 import async from 'async'
 import {
 	EventEmitter
@@ -17,32 +16,26 @@ export default class Checker extends EventEmitter {
 
 		this.gameDir = path.join(__dirname, '../../', 'game')
 
-		this.queue = async.queue((file, next) => this.checkFileSync(file).then(next).catch(err => {
-			console.error(err)
-			next()
-		}))
+		this.queue = async.queue((file, next) => this.checkFileSync(file)
+			.then(next)
+			.catch(err => {
+				console.error(err)
+				next()
+			}))
 
-		this.init()
-	}
+		this.queue.drain = () => this.emit('done')
 
-
-	get percentDone() {
-
-
-
-	}
-
-
-	init() {
 		this.checkRemote()
-			.then(hashes => _.forEach(hashes, (hash, filePath) => this.queue.push({
-				filePath, hash
-			})))
-			.catch(error => {
-				console.error(error)
-			})
-	}
+			.then(hashes => {
+				if (hashes.length === 0)
+					return this.emit('done')
 
+				_.forEach(hashes, (hash, filePath) => this.queue.push({
+					filePath, hash
+				}))
+			})
+			.catch(console.error)
+	}
 
 	checkRemote() {
 		return new Promise((resolve, reject) => request('http://codeusa.net/apps/poptartt/updates/update.json', {
@@ -55,36 +48,33 @@ export default class Checker extends EventEmitter {
 		}))
 	}
 
-	updateProgress() {
-		this.emit('progress', percent)
-	}
-
 	checkFileSync({
 		filePath, hash
 	}) {
 		return new Promise((resolve, reject) => {
-			const relativeFilePath = path.join(this.gameDir, filePath)
-			let filePresent = false
-			try {
-				filePresent = fs.statSync(relativeFilePath)
-			} catch (e) {
-				console.error(e)
-			}
-			console.log(filePresent)
-			if (!filePresent)
-				return this.downloadUpdatedFile(filePath, hash)
-
+			return this.verifyFile(path.join(this.gameDir, filePath), hash)
+				.then(verified => {
+					if (verified) {
+						console.info('Verified:', path.join(this.gameDir, filePath))
+						return resolve()
+					}
+					return this.downloadUpdatedFile(filePath, hash)
+						.then(resolve)
+						.catch(reject)
+				})
 		})
 	}
 
 	verifyFile(filepath, hash) {
-		return new Promise((resolve, reject) => {
-			const buf = fs.readFileSync(filepath)
-			console.log('data loaded:', buf.length, 'bytes')
-			var startTime = Date.now()
-			var h = xxhashjs(0).update(buf).digest()
-			var delta = Date.now() - startTime
-			console.log('0x' + h.toString(), 'in', delta, 'ms')
+		return new Promise(resolve => {
+
+			if (!fs.existsSync(path.dirname(filepath)))
+				fs.mkdirSync(path.dirname(filepath))
+
+			md5File(filepath, (error, fileHash) => {
+				if (error) return resolve(false)
+				return resolve(hash === fileHash.toUpperCase())
+			})
 		})
 	}
 
@@ -96,12 +86,13 @@ export default class Checker extends EventEmitter {
 					reject(err)
 				})
 				.pipe(fs.createWriteStream(path.join(this.gameDir, filePath)))
-				.on('finish', () => {
-					console.info('Update successfully downloaded to', path.join(this.gameDir, filePath))
-					this.verifyFile(path.join(this.gameDir, filePath), hash)
-						.then(resolve)
-						.catch(reject)
-				})
+				.on('finish', () => this.verifyFile(path.join(this.gameDir, filePath), hash)
+					.then(verified => {
+						if (!verified) return reject()
+						console.info('Update successfully downloaded to:', path.join(this.gameDir, filePath))
+						resolve()
+					})
+					.catch(reject))
 		})
 	}
 }

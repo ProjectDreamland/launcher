@@ -1,39 +1,33 @@
 import React from 'react'
+import path from 'path'
+import {
+	spawn
+}
+from 'child_process'
 import {
 	getCurrentWindow
 }
 from 'remote'
 
-import AppStore from '../stores/appStore'
-import AppActions from '../actions/appActions'
 
-
-class If extends React.Component {
-	render() {
-		return this.props.test ? this.props.children : null
-	}
-}
-
-export default class Settings extends React.Component {
-
-	state = AppStore.getState();
-
-	componentDidMount() {
-		AppStore.listen(this.onChange)
-	}
-
-	componentWillUnmount() {
-		AppStore.unlisten(this.onChange)
-	}
-
-	onChange = () => this.setState(AppStore.getState());
+export default class LUNCH extends React.Component {
 
 	handelClick() {
-		console.log("Click");
+		if (!this.props.canPlay) return
+
+		const gameSpawn = spawn(path.join(__dirname, '../../', 'game', 'A51.exe'), {
+			detached: true,
+			cwd: path.join(__dirname, '../../', 'game')
+		})
+
+		gameSpawn.stdout.on('data', console.log)
+		gameSpawn.stderr.on('data', console.log)
+		gameSpawn.on('exit', (code) => console.log(`Child exited with code ${code}`))
+
 	}
 
 	render() {
-		let launchButton = "Launch";
+		const launchButton = this.props.canPlay ? 'Launch' : 'Verifying Local Files...'
 		return (
 			<div className="container">
 				<div className="background-container">
@@ -46,7 +40,7 @@ export default class Settings extends React.Component {
 						<img src="images/logo.png" />
 					</div>
 					<div className="buttons">
-	        			<div className="btn launch" onClick={this.handelClick}>{launchButton}</div>
+	        			<div className="btn launch" onClick={() => this.handelClick()}>{launchButton}</div>
 	        			<div className="btn quit" onClick={() => getCurrentWindow().close()}>Quit</div>
 	        		</div>
 				</div>

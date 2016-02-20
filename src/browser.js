@@ -4,12 +4,8 @@ import {
     Menu, Tray
 }
 from 'electron'
-import shell from 'shell'
 import path from 'path'
-import yargs from 'yargs'
 
-const args = yargs(process.argv.slice(1)).wrap(100).argv
-var minimzeInfoShown = false
 
 app.on('ready', () => {
     const mainWindow = new BrowserWindow({
@@ -24,12 +20,17 @@ app.on('ready', () => {
         show: false,
     })
 
-    if (args.dev) {
-        mainWindow.show()
-        mainWindow.toggleDevTools()
-        mainWindow.focus()
-        console.info('Dev Mode Active: Developer Tools Enabled.')
-    }
+    try {
+        const yargs = require('yargs')
+        const args = yargs(process.argv.slice(1)).wrap(100).argv
+        if (args.dev) {
+            mainWindow.show()
+            mainWindow.toggleDevTools()
+            mainWindow.focus()
+            console.info('Dev Mode Active: Developer Tools Enabled.')
+        }
+    } catch (e) {}
+
 
     mainWindow.loadURL(path.normalize('file://' + path.join(__dirname, '../index.html')))
     mainWindow.webContents.on('new-window', event => event.preventDefault())
@@ -37,7 +38,7 @@ app.on('ready', () => {
     mainWindow.webContents.on('will-navigate', (event, url) => {
         if (!url.includes('build/index.html'))
             event.preventDefault()
-    });
+    })
 
     mainWindow.webContents.on('did-finish-load', () => {
         mainWindow.show()

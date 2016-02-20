@@ -1,32 +1,27 @@
 import React from 'react'
-import Launcher from './Launcher.react'
 
-import AppStore from '../stores/appStore'
-import AppActions from '../actions/appActions'
+import Launcher from './Launcher.react'
 import gameCheck from '../utils/gameCheck'
 
 
 export default class Framework extends React.Component {
-	state = AppStore.getState();
-
-	componentWillMount() {
-		const checker = new gameCheck()
-	}
+	state = {
+		canPlay: false
+	};
 
 	componentDidMount() {
-		AppStore.listen(this.onChange)
+		const checker = new gameCheck()
+
+		checker.on('done', () => this.setState({
+			canPlay: true
+		}))
 	}
 
-	componentWillUnmount() {
-		AppStore.unlisten(this.onChange)
-	}
-
-	onChange = () => this.setState(AppStore.getState());
-
+	
 	render() {
 		return (
 			<div>
-            	<Launcher />
+            	<Launcher {...this.state} />
             </div>
 		)
 	}

@@ -4,6 +4,7 @@ build
 release
 dist
 node_modules
+game
 npm-debug.log
 
 # Cache

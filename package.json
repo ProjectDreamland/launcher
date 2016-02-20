@@ -18,6 +18,7 @@
   "license": "GPL-3.0",
   "dependencies": {
     "alt": "^0.18.2",
+    "async": "^1.5.2",
     "bluebird": "^3.3.1",
     "fbjs": "^0.7.2",
     "local-storage": "^1.4.2",
@@ -27,7 +28,9 @@
     "react-dom": "^0.14.7",
     "react-tap-event-plugin": "^0.2.2",
     "request": "^2.69.0",
+    "request-progress": "^2.0.1",
     "uuid": "^2.0.1",
+    "xxhashjs": "^0.1.1",
     "yargs": "^4.1.0"
   },
   "devDependencies": {

@@ -45,6 +45,14 @@ module.exports = function(grunt) {
                     src: ['**/*'],
                     dest: 'build/images/'
                 }]
+            },
+            game: {
+                files: [{
+                    expand: true,
+                    cwd: 'game/',
+                    src: ['**/*'],
+                    dest: 'build/game/'
+                }]
             }
         },
         sass: {
@@ -117,7 +125,7 @@ module.exports = function(grunt) {
                 options: {
                     livereload: 27871
                 },
-                files: ['build/**/*']
+                files: ['build/**/*', '!build/game/**/*']
             },
             js: {
                 files: ['src/**/*.js'],
@@ -134,7 +142,7 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('default', ['clean:build', 'newer:babel', 'sass', 'newer:copy:build', 'shell:electron', 'watchChokidar']);
+    grunt.registerTask('default', ['newer:babel', 'sass', 'newer:copy:build', 'newer:copy:game', 'shell:electron', 'watchChokidar']);
 
     grunt.registerTask('run', ['newer:babel', 'shell:electron', 'watchChokidar']);
 
@@ -143,7 +151,7 @@ module.exports = function(grunt) {
     grunt.registerTask('release', ['clean:build', 'babel', 'sass', 'copy:build', 'npm-command:release', 'electron:release']);
 
     process.on('SIGINT', function() {
-        grunt.task.run(['shell:electron:kill']);
-        process.exit(1);
-    });
-};
+        grunt.task.run(['shell:electron:kill'])
+        process.exit(1)
+    })
+}

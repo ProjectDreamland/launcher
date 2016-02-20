@@ -45,16 +45,18 @@ export default class LUNCH extends React.Component {
 						<img src="images/logo.png" />
 					</div>
 					<div className="buttons">
-	        			<div className="btn launch" onClick={() => this.handelClick()}>{launchButton}</div>
+	        			<div className={`btn ${this.props.canPlay ? 'launch' : 'verify'}`} onClick={() => this.handelClick()}>{launchButton}</div>
 	        			<div className="btn quit" onClick={() => getCurrentWindow().close()}>Quit</div>
 	        		</div>
-	        		<div onClick={this.openSource} className="source-links">
-	        			<img src="images/GitHub-Mark-Light-120px-plus.png" />
-	        		</div>
 	        		<div className="social">
-	        			<div onClick={() => shell.openExternal('https://twitter.com/luigiplr')}>@luigiplr</div>
-	        			<div onClick={() => shell.openExternal('https://twitter.com/Andrewmd5')}>@Andrewmd5</div>
-	        		</div>
+		        		<div className="github" onClick={this.openSource}>
+		        			<img src="images/GitHub-Mark-Light-120px-plus.png" />
+		        		</div>
+		        		<div className="twitter">
+		        			<span onClick={() => shell.openExternal('https://twitter.com/luigiplr')}>@luigiplr</span>
+		        			<span onClick={() => shell.openExternal('https://twitter.com/Andrewmd5')}>@Andrewmd5</span>
+		        		</div>
+		        	</div>
 				</div>
             </div>
 		)

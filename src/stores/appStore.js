@@ -1,42 +1,20 @@
 import ls from 'local-storage'
-import {
-	v4 as uuid
-}
-from 'uuid'
 import alt from '../alt'
 import AppActions from '../actions/appActions'
-
-const setAnalyticsID = (id = uuid()) => {
-	ls.set('analyticsID', id)
-	return id
-}
 
 class AppStore {
 	constructor() {
 		this.bindActions(AppActions)
-
-		/* Core Settings */
-
-		this.analiticsID = ls.get('analyticsID') || setAnalyticsID()
-
-		this.info = {
-			open: false,
-			message: ''
-		}
+		this.updating = false;
+		this.progress = 0;
+		this.eta = undefined;
 	}
-
-
-	/* Core */
-
-	onInfo(info) {
-		if (!info)
-			return this.info = {
-				open: false,
-				message: ''
-			}
-		this.info = info
-	}
-
+	onSetProgress(progress, eta) {
+        this.setState({
+            progress: progress,
+            eta: eta
+        });
+    }
 }
 
 export default alt.createStore(AppStore)

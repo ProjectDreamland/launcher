@@ -12,10 +12,9 @@ const args = yargs(process.argv.slice(1)).wrap(100).argv
 var minimzeInfoShown = false
 
 app.on('ready', () => {
-
     const mainWindow = new BrowserWindow({
-        width: 740,
-        height: 380,
+        width: 700,
+        height: 420,
         resizable: false,
         icon: path.join(__dirname, '../images/area51-icon.png'),
         title: 'Area 51 Launcher',

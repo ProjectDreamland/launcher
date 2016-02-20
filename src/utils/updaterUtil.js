@@ -7,6 +7,7 @@ import child_process from 'child_process';
 import _ from 'lodash';
 import url from 'url';
 import updaterActions from '../actions/updateActions';
+import appActions from '../actions/appActions';
 import {
     app
 }
@@ -14,6 +15,7 @@ from 'remote';
 
 console.log("Updater");
 
+const updateUrl = 'http://codeusa.net/apps/poptartt/updates/update.json';
 var tryedAgain = false;
 
 const appUpdateDir = path.join(app.getPath('xxx'), 'xxx');
@@ -44,6 +46,7 @@ const download = (url, filename, size, version) => {
     })
         .on('progress', state => {
             console.log('Update download percent:', state.percent + '%', '\nETA:', state.eta.toString(), 'seconds');
+            appActions.setProgress(state.percent, state.eta);
         })
         .on('error', err => {
             console.error('Error downloading update!', err);
@@ -51,7 +54,7 @@ const download = (url, filename, size, version) => {
         .pipe(fs.createWriteStream(outPath))
         .on('finish', () => {
             console.info('Update successfully downloaded to', outPath);
-
+            appActions.setProgress(100, 0);
             updaterActions.updateAvailable(outPath);
         });
 }

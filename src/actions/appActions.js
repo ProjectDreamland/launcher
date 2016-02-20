@@ -1,5 +1,6 @@
 import alt from '../alt';
 
 export default alt.generateActions(
-	'autoUpdateChange'
+	'autoUpdateChange',
+	'setProgress'
 );

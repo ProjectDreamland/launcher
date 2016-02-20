@@ -11,7 +11,7 @@ class AppStore {
 	}
 	onSetProgress(progress, eta) {
         this.setState({
-            progress: eta,
+            progress: progress,
             eta: eta
         });
     }

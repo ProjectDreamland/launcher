@@ -1,5 +1,6 @@
 import React from 'react'
 import path from 'path'
+import shell from 'shell'
 import {
 	spawn
 }
@@ -23,7 +24,11 @@ export default class LUNCH extends React.Component {
 		gameSpawn.stdout.on('data', console.log)
 		gameSpawn.stderr.on('data', console.log)
 		gameSpawn.on('exit', (code) => console.log(`Child exited with code ${code}`))
+	}
 
+	openSource() {
+		shell.openExternal('https://github.com/luigiplr/area51-launcher')
+		shell.openExternal('https://github.com/Codeusa/Area51')
 	}
 
 	render() {
@@ -42,6 +47,13 @@ export default class LUNCH extends React.Component {
 					<div className="buttons">
 	        			<div className="btn launch" onClick={() => this.handelClick()}>{launchButton}</div>
 	        			<div className="btn quit" onClick={() => getCurrentWindow().close()}>Quit</div>
+	        		</div>
+	        		<div onClick={this.openSource} className="source-links">
+	        			<img src="images/GitHub-Mark-Light-120px-plus.png" />
+	        		</div>
+	        		<div className="social">
+	        			<div onClick={() => shell.openExternal('https://twitter.com/luigiplr')}>@luigiplr</div>
+	        			<div onClick={() => shell.openExternal('https://twitter.com/Andrewmd5')}>@Andrewmd5</div>
 	        		</div>
 				</div>
             </div>

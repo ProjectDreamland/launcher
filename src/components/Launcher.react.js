@@ -31,8 +31,17 @@ export default class LUNCH extends React.Component {
 		shell.openExternal('https://github.com/Codeusa/Area51')
 	}
 
+	getLaunchStatus () {
+		if (this.props.updating)
+			return 'Updating...'
+		else if (this.props.canPlay)
+			return 'Launch Game'
+		else
+			return 'Verifying Files...'
+	}
+
 	render() {
-		const launchButton = this.props.canPlay ? 'Launch' : 'Verifying Local Files...'
+		const launchButton = this.getLaunchStatus()
 		return (
 			<div className="container">
 				<div className="background-container">
@@ -45,7 +54,7 @@ export default class LUNCH extends React.Component {
 						<img src="images/logo.png" />
 					</div>
 					<div className="buttons">
-	        			<div className={`btn ${this.props.canPlay ? 'launch' : 'verify'}`} onClick={() => this.handelClick()}>{launchButton}</div>
+	        			<div className={`btn launch ${this.props.canPlay ? '' : 'verify'}`} onClick={() => this.handelClick()}>{launchButton}</div>
 	        			<div className="btn quit" onClick={() => getCurrentWindow().close()}>Quit</div>
 	        		</div>
 	        		<div className="social">

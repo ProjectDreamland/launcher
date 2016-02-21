@@ -32,7 +32,7 @@
 .buttons {
     width: 100%;
 }
-.buttons .btn {
+.buttons .btn.launch, .buttons .btn.quit  {
     background-color: rgba(0, 8, 0, 0.4);
     text-align: center;
     padding: 17px;
@@ -42,13 +42,14 @@
     font-size: 18px;
     font-weight: 400;
     text-shadow: 1px 1px 1px black;
-    transition: background-color 0.1s;
+    transition: background-color 0.125s;
 }
 .buttons .btn.launch:hover, .buttons .btn.quit:hover {
     background-color: rgba(0, 10, 0, 0.6);
 }
-.buttons .btn.verify {
+.buttons .btn.launch.verify {
     pointer-events: none;
+    background-color: rgba(0,8,0,0.2);
 }
 
 .social {

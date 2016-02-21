@@ -7,7 +7,8 @@ import updaterUtil from '../utils/updaterUtil'
 
 export default class Framework extends React.Component {
 	state = {
-		canPlay: false
+		canPlay: false,
+		updating: false
 	};
 
 	componentWillMount() {
@@ -16,8 +17,12 @@ export default class Framework extends React.Component {
 
 	componentDidMount() {
 		const checker = new gameCheck()
+		checker.on('updating', () => this.setState({
+			updating: true
+		}))
 		checker.on('done', () => this.setState({
-			canPlay: true
+			canPlay: true,
+			updating: false
 		}))
 	}
 

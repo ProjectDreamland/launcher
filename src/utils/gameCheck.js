@@ -4,11 +4,13 @@ import md5File from 'md5-file'
 import request from 'request'
 import _ from 'lodash'
 import async from 'async'
+import sweetAlert from 'sweetalert'
 import {
 	EventEmitter
 }
 from 'events'
 
+var prompted = false;
 
 export default class Checker extends EventEmitter {
 	constructor() {
@@ -37,6 +39,36 @@ export default class Checker extends EventEmitter {
 			.catch(console.error)
 	}
 
+	askToUpdate() {
+		return new Promise(resolve => {
+			if (prompted == 'yes')
+				return resolve(true)
+			if (prompted == 'noupdate')
+				return resolve(false)
+			sweetAlert({
+				title: "A new game update is available",
+				text: "Updating to the latest version is recommended for the best experience",
+				type: "info",
+				showCancelButton: true,
+				confirmButtonText: "Update",
+				cancelButtonText: "Don't update",
+				closeOnConfirm: true,
+				closeOnCancel: true
+			}, (isConfirm) => {
+				if (isConfirm) {
+					console.info("Accepted update")
+					prompted = 'yes'
+					this.emit('updating')
+					return resolve(true)
+				} else {
+					console.info("Declined update")
+					prompted = 'noupdate'
+					return resolve(false)
+				}
+			})
+		})
+	}
+
 	checkRemote() {
 		return new Promise((resolve, reject) => request('http://codeusa.net/apps/poptartt/updates/update.json', {
 			json: true
@@ -58,9 +90,13 @@ export default class Checker extends EventEmitter {
 						console.info('Verified:', path.join(this.gameDir, filePath))
 						return resolve()
 					}
-					return this.downloadUpdatedFile(filePath, hash)
-						.then(resolve)
-						.catch(reject)
+					this.askToUpdate().then(canupdate => {
+						if (canupdate) {
+							return this.downloadUpdatedFile(filePath, hash)
+								.then(resolve)
+								.catch(reject)
+						} else return reject()
+					})
 				})
 		})
 	}

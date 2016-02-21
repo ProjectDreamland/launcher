@@ -50,7 +50,6 @@ const download = (url, filename, size, version) => {
         })
 }
 
-
 const notifyUpdate = (updatePath, version) => {
     notifier.notify({
         title: 'Area51 Launcher ' + version + ' update available',
@@ -105,10 +104,8 @@ const check = annon => {
     else
         console.info('Checking for updates for client v.' + version);
 
-    analyticsActions.event(['update', 'check', version]);
     getJson('https://api.github.com/repos/luigiplr/area51-launcher/releases/latest' + (annon ? '' : '?client_id=0c16526f9cd58638f08b&client_secret=fe3f7257d56a694296d7b51ee318f01cc26d0509'))
         .then(json => {
-
             if (version === json.tag_name || json.prerelease)
                 return console.info('No new updates available');
 
@@ -132,7 +129,6 @@ const check = annon => {
                 console.info('New update available v.' + json.tag_name);
                 download(candidate.browser_download_url, candidate.name, candidate.size, 'v.' + json.tag_name);
             }
-
         })
         .catch(err => {
             console.log(err);

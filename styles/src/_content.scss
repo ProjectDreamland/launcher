@@ -23,6 +23,11 @@
     box-sizing: border-box;
     justify-content: space-between;
     flex-direction: column;
+    opacity: 1;
+    transition: opacity 0.3s;
+}
+body.stop-scrolling .content {
+    opacity: 0;
 }
 
 .logo {

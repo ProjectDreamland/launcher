@@ -50,6 +50,7 @@ export default class Checker extends EventEmitter {
 				text: "Updating to the latest version is recommended for the best experience",
 				type: "info",
 				showCancelButton: true,
+				confirmButtonColor: "#3C8C1F",
 				confirmButtonText: "Update",
 				cancelButtonText: "Don't update",
 				closeOnConfirm: true,

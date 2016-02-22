@@ -1,3 +1,35 @@
+/* Custom Sweet Alert CSS */
+body .sweet-alert {
+  background-color: rgba(55,55,55,0.8);
+  width: 418px;
+  margin-left: -226px;
+}
+  body .sweet-alert h2 {
+    color: #C7C7C7;
+    font-size: 27px;
+    margin: 23px 0;
+  }
+  body .sweet-alert p {
+    color: #B9B9B9;
+    font-size: 15px;
+  }
+  body .sweet-alert .sa-icon {
+    margin: 16px auto;
+  }
+  body .sweet-alert .sa-button-container button {
+    background-color: #676767;
+  }
+    body .sweet-alert .sa-button-container button:hover {
+      background-color: #616161
+    }
+    body .sweet-alert .sa-button-container button:active {
+      background-color: #5A5A5A;
+    }
+    body .sweet-alert .sa-button-container button:focus {
+      box-shadow: rgba(199, 199, 199, 0.8) 0px 0px 2px,rgba(0,0,0,0.0470588) 0px 0px 0px 1px inset !important;
+    }
+
+/* Original Sweet Alert CSS */
 body.stop-scrolling {
   height: 100%;
   overflow: hidden; }

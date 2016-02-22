@@ -16,16 +16,16 @@ body .sweet-alert {
   body .sweet-alert .sa-icon {
     margin: 16px auto;
   }
-  body .sweet-alert .sa-button-container button {
+  body .sweet-alert .sa-button-container button.cancel {
     background-color: #676767;
   }
-    body .sweet-alert .sa-button-container button:hover {
+    body .sweet-alert .sa-button-container button.cancel:hover {
       background-color: #616161
     }
-    body .sweet-alert .sa-button-container button:active {
+    body .sweet-alert .sa-button-container button.cancel:active {
       background-color: #5A5A5A;
     }
-    body .sweet-alert .sa-button-container button:focus {
+    body .sweet-alert .sa-button-container button.cancel:focus {
       box-shadow: rgba(199, 199, 199, 0.8) 0px 0px 2px,rgba(0,0,0,0.0470588) 0px 0px 0px 1px inset !important;
     }
 

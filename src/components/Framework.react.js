@@ -8,7 +8,8 @@ import updaterUtil from '../utils/updaterUtil'
 export default class Framework extends React.Component {
 	state = {
 		canPlay: false,
-		updating: false
+		updating: false,
+		progress: null
 	};
 
 	componentWillMount() {
@@ -17,12 +18,16 @@ export default class Framework extends React.Component {
 
 	componentDidMount() {
 		const checker = new gameCheck()
+		checker.on('progress', prog => this.setState({
+			progress: prog
+		}))
 		checker.on('updating', () => this.setState({
 			updating: true
 		}))
 		checker.on('done', () => this.setState({
 			canPlay: true,
-			updating: false
+			updating: false,
+			progress: "finished"
 		}))
 	}
 

@@ -25,6 +25,7 @@
     flex-direction: column;
     opacity: 1;
     transition: opacity 0.3s;
+    align-items: center;
 }
 body.stop-scrolling .content {
     opacity: 0;
@@ -91,4 +92,34 @@ body.stop-scrolling .content {
 }
 .social .twitter span:hover {
     opacity: 1;
+}
+
+.progress-container {
+    width: 350px;
+    height: 40px;
+}
+.progress-container .progress {
+    height: 100%;
+    width: 100%;
+    transition: opacity 0.5s;
+    transition-delay: 3s;
+}
+.progress-container .progress.hide {
+    opacity: 0;
+}
+
+.progress-container .progress p {
+    text-align: center;
+    margin-bottom: 4px;
+}
+.progress-container .progress-bar {
+    width: 100%;
+    border-radius: 4px;
+    background-color: darkgrey;
+}
+.progress-container .progress-bar-inner {
+    height: 20px;
+    background-color: grey;
+    border-radius: 4px;
+    transition: width 0.125s;
 }

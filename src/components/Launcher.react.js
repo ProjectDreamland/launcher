@@ -1,6 +1,7 @@
 import React from 'react'
 import path from 'path'
 import shell from 'shell'
+import Progress from './Progress'
 import {
 	spawn
 }
@@ -10,6 +11,7 @@ import {
 }
 from 'remote'
 
+var updated = 0;
 
 export default class LUNCH extends React.Component {
 
@@ -52,6 +54,9 @@ export default class LUNCH extends React.Component {
 				<div className="content">
 					<div className="logo">
 						<img src="images/logo.png" />
+					</div>
+					<div className="progress-container">
+						{this.props.progress ? <Progress {...this.props} /> : ''}
 					</div>
 					<div className="buttons">
 	        			<div className={`btn launch ${this.props.canPlay ? '' : 'verify'}`} onClick={() => this.handelClick()}>{launchButton}</div>

@@ -30,15 +30,19 @@ export default class LUNCH extends React.Component {
 	}
 
 	openAbout() {
-		let message = [
-			"<b>Area 51 Launcher</b> <br>",
-			"Designed and created by <a href='github.com/luigiplr'>luigiplr</a> and <a href='github.com/Js41637'>Js41637</a> <br> <br>",
-			"Software Used: <br>",
-			"<i>Electron, React, NodeJS, SweetAlert, and many others</i>"
-		]
+		let message = `
+			<b>Area 51 Launcher</b> 
+			<br>
+			Designed and created by <a href='github.com/luigiplr'>luigiplr</a> and <a href='github.com/Js41637'>Js41637</a> 
+			<br><br>
+			Software Used: 
+			<br>
+			<i>Electron, React, NodeJS, SweetAlert, and many others</i>
+		`
+
 		sweetAlert({
 			title: "About",
-			text: message.join(''),
+			text: message,
 			html: true,
 			confirmButtonColor: "#3C8C1F"
 		})

@@ -2,6 +2,7 @@ import React from 'react'
 import path from 'path'
 import shell from 'shell'
 import Progress from './Progress'
+import sweetAlert from 'sweetalert'
 import {
 	spawn
 }
@@ -26,6 +27,21 @@ export default class LUNCH extends React.Component {
 		gameSpawn.stdout.on('data', console.log)
 		gameSpawn.stderr.on('data', console.log)
 		gameSpawn.on('exit', (code) => console.log(`Child exited with code ${code}`))
+	}
+
+	openAbout() {
+		let message = [
+			"<b>Area 51 Launcher</b> <br>",
+			"Designed and created by <a href='github.com/luigiplr'>luigiplr</a> and <a href='github.com/Js41637'>Js41637</a> <br> <br>",
+			"Software Used: <br>",
+			"<i>Electron, React, NodeJS, SweetAlert, and many others</i>"
+		]
+		sweetAlert({
+			title: "About",
+			text: message.join(''),
+			html: true,
+			confirmButtonColor: "#3C8C1F"
+		})
 	}
 
 	openSource() {
@@ -66,6 +82,7 @@ export default class LUNCH extends React.Component {
 		        		<div className="github" onClick={this.openSource}>
 		        			<img src="images/GitHub-Mark-Light-120px-plus.png" />
 		        		</div>
+		        		<div className="about" onClick={this.openAbout}>i</div>
 		        		<div className="twitter">
 		        			<span onClick={() => shell.openExternal('https://twitter.com/luigiplr')}>@luigiplr</span>
 		        			<span onClick={() => shell.openExternal('https://twitter.com/Andrewmd5')}>@Andrewmd5</span>

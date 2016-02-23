@@ -36,6 +36,7 @@ export default class Checker extends EventEmitter {
 					return this.emit('done')
 
 				_.forEach(hashes, (hash, filePath) => {
+					totalFiles++;
 					this.queue.push({
 						filePath, hash
 					})
@@ -62,13 +63,13 @@ export default class Checker extends EventEmitter {
 			return this.verifyFile(path.join(this.gameDir, filePath), hash)
 				.then(verified => {
 					if (verified) {
-						
+						totalFiles--
 						console.info('Verified:', path.join(this.gameDir, filePath))
 						return resolve()
 					}
 					this.askToUpdate().then(canupdate => {
 						if (canupdate) {
-							totalFiles++;
+							
 							return this.downloadUpdatedFile(filePath, hash)
 								.then(resolve)
 								.catch(reject)
@@ -94,7 +95,7 @@ export default class Checker extends EventEmitter {
 	downloadUpdatedFile(filePath, hash) {
 		return new Promise((resolve, reject) => {
 			progress(request(`http://codeusa.net/apps/poptartt/updates/${filePath}`), {
-		        throttle: 50,
+		        throttle: 75,
 		        delay: 10
 		    })
 				.on('error', err => {

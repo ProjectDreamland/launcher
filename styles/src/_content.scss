@@ -64,9 +64,10 @@ body.stop-scrolling .content {
     left: 3px;
     right: -4px;
     font-size: 15px;
+    display: flex;
+    justify-content: space-between;
 }
 .social .github {
-    float: left;
     cursor: pointer;
 }
 .social .github img {
@@ -79,8 +80,35 @@ body.stop-scrolling .content {
     margin-right: 5px;
     opacity: 1;
 }
+.social .about {
+    font-weight: 800;
+    position: absolute;
+    left: 28px;
+    top: 3px;
+    font-size: 16px;
+    color: #151515;
+    cursor: pointer;
+    width: 21px;
+    text-align: center;
+    height: 18px;
+}
+.social .about:before {
+    content: " ";
+    background-color: rgba(230,234,234,0.91);
+    width: 21px;
+    text-align: center;
+    border-radius: 63px;
+    height: 21px;
+    position: absolute;
+    z-index: -1;
+    top: -3px;
+    cursor: pointer;
+    left: 0;
+}
+.social .about:hover:before {
+    background-color: rgba(230, 234, 234, 1);
+}
 .social .twitter {
-    float: right;
     height: 23px;
     padding-top: 3px;
     box-sizing: border-box;
@@ -115,11 +143,21 @@ body.stop-scrolling .content {
 .progress-container .progress-bar {
     width: 100%;
     border-radius: 4px;
-    background-color: darkgrey;
+    background-color: rgb(110,110,110);
 }
 .progress-container .progress-bar-inner {
     height: 20px;
-    background-color: grey;
+    background-color: rgb(75,75,75);
     border-radius: 4px;
     transition: width 0.125s;
+}
+
+i {
+    font-style: italic;
+}
+b {
+    font-weight: 700;
+}
+a {
+    color: #2C89DC;
 }

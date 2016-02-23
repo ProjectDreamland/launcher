@@ -5,6 +5,7 @@ import request from 'request'
 import progress from 'request-progress'
 import _ from 'lodash'
 import async from 'async'
+import mkdirp from 'mkdirp'
 import sweetAlert from 'sweetalert'
 import {
 	EventEmitter
@@ -69,7 +70,7 @@ export default class Checker extends EventEmitter {
 					}
 					this.askToUpdate().then(canupdate => {
 						if (canupdate) {
-							
+
 							return this.downloadUpdatedFile(filePath, hash)
 								.then(resolve)
 								.catch(reject)
@@ -83,7 +84,7 @@ export default class Checker extends EventEmitter {
 		return new Promise(resolve => {
 
 			if (!fs.existsSync(path.dirname(filepath)))
-				fs.mkdirSync(path.dirname(filepath))
+				mkdirp.sync(path.dirname(filepath))
 
 			md5File(filepath, (error, fileHash) => {
 				if (error) return resolve(false)
@@ -95,15 +96,19 @@ export default class Checker extends EventEmitter {
 	downloadUpdatedFile(filePath, hash) {
 		return new Promise((resolve, reject) => {
 			progress(request(`http://codeusa.net/apps/poptartt/updates/${filePath}`), {
-		        throttle: 75,
-		        delay: 10
-		    })
+					throttle: 75,
+					delay: 10
+				})
 				.on('error', err => {
 					console.error(`Error downloading ${filePath}`, err)
 					reject(err)
 				})
 				.on('progress', state => {
-					this.emit('progress', {percent: state.percentage, total: totalFiles, completed: completedFiles})
+					this.emit('progress', {
+						percent: state.percentage,
+						total: totalFiles,
+						completed: completedFiles
+					})
 				})
 				.pipe(fs.createWriteStream(path.join(this.gameDir, filePath)))
 				.on('finish', () => this.verifyFile(path.join(this.gameDir, filePath), hash)

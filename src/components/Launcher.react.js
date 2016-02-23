@@ -19,7 +19,7 @@ export default class LUNCH extends React.Component {
 	handelClick() {
 		if (!this.props.canPlay) return
 
-		const gameSpawn = spawn(path.join(__dirname, '../../', 'game', 'A51.exe'), {
+		const gameSpawn = spawn(path.join(__dirname, '../../', 'game', 'A51.exe'), ['--launcher'], {
 			detached: true,
 			cwd: path.join(__dirname, '../../', 'game')
 		})
@@ -49,7 +49,7 @@ export default class LUNCH extends React.Component {
 		shell.openExternal('https://github.com/Codeusa/Area51')
 	}
 
-	getLaunchStatus () {
+	getLaunchStatus() {
 		if (this.props.updating)
 			return 'Updating...'
 		else if (this.props.canPlay)

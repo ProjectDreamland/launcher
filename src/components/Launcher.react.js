@@ -31,7 +31,7 @@ export default class LUNCH extends React.Component {
 
 	openAbout() {
 		let message = `
-			<b>Area 51 Launcher</b> 
+			<b>Project Dreamland Launcher</b> 
 			<br>
 			Designed and created by <a href='github.com/luigiplr'>luigiplr</a> and <a href='github.com/Js41637'>Js41637</a> 
 			<br><br>
@@ -49,8 +49,8 @@ export default class LUNCH extends React.Component {
 	}
 
 	openSource() {
-		shell.openExternal('https://github.com/luigiplr/area51-launcher')
-		shell.openExternal('https://github.com/Codeusa/Area51')
+		shell.openExternal('https://github.com/ProjectDreamland/launcher')
+		shell.openExternal('https://github.com/ProjectDreamland')
 	}
 
 	getLaunchStatus() {

@@ -104,7 +104,7 @@ const check = annon => {
     else
         console.info('Checking for updates for client v.' + version);
 
-    getJson('https://api.github.com/repos/luigiplr/area51-launcher/releases/latest' + (annon ? '' : '?client_id=0c16526f9cd58638f08b&client_secret=fe3f7257d56a694296d7b51ee318f01cc26d0509'))
+    getJson('https://api.github.com/repos/ProjectDreamland/launcher/releases/latest' + (annon ? '' : '?client_id=0c16526f9cd58638f08b&client_secret=fe3f7257d56a694296d7b51ee318f01cc26d0509'))
         .then(json => {
             if (version === json.tag_name || json.prerelease)
                 return console.info('No new updates available');

@@ -47,7 +47,7 @@ export default class Checker extends EventEmitter {
 	}
 
 	checkRemote() {
-		return new Promise((resolve, reject) => request('http://codeusa.net/apps/poptartt/updates/update.json', {
+		return new Promise((resolve, reject) => request('https://andrew.im/area51/update.json', {
 			json: true
 		}, (error, response, body) => {
 			if (!error && response.statusCode == 200)
@@ -83,8 +83,10 @@ export default class Checker extends EventEmitter {
 	verifyFile(filepath, hash) {
 		return new Promise(resolve => {
 
-			if (!fs.existsSync(path.dirname(filepath)))
+			if (!fs.existsSync(path.dirname(filepath))){
 				mkdirp.sync(path.dirname(filepath))
+				return resolve(false)
+			}
 
 			md5File(filepath, (error, fileHash) => {
 				if (error) return resolve(false)
@@ -95,7 +97,7 @@ export default class Checker extends EventEmitter {
 
 	downloadUpdatedFile(filePath, hash) {
 		return new Promise((resolve, reject) => {
-			progress(request(`http://codeusa.net/apps/poptartt/updates/${filePath}`), {
+			progress(request(`https://andrew.im/area51/${filePath}`), {
 					throttle: 75,
 					delay: 10
 				})

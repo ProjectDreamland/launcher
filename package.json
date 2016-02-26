@@ -3,13 +3,13 @@
   "version": "0.0.1",
   "author": "Luigi Poole",
   "description": "",
-  "homepage": "https://github.com/luigiplr/area51-launcher",
+  "homepage": "https://github.com/ProjectDreamland/launcher",
   "main": "js/browser.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/luigiplr/area51-launcher.git"
+    "url": "https://github.com/ProjectDreamland/launcher.git"
   },
-  "bugs": "https://github.com/luigiplr/area51-launcher/issues",
+  "bugs": "https://github.com/ProjectDreamland/issues",
   "scripts": {
     "start": "grunt --dev",
     "release": "grunt release"

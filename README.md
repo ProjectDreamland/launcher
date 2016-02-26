@@ -22,7 +22,7 @@ Running `npm start` will download and install [Electron](http://electron.atom.io
 
 ### Find a bug/issue or simply want to request a new feature?
 
-[Create a Github issue/feature request!](https://github.com/ProjectDreamland/area51-launcher/issues/new)
+[Create a Github issue/feature request!](https://github.com/ProjectDreamland/launcher/issues/new)
 
 ## Copyright and License
 

@@ -1,6 +1,6 @@
 #Area 51 Launcher
-[![Dependency Status](https://david-dm.org/ProjectDreamland/area51-launcher.svg)](https://david-dm.org/ProjectDreamland/area51-launcher) 
-[![devDependency Status](https://david-dm.org/ProjectDreamland/area51-launcher/dev-status.svg)](https://david-dm.org/ProjectDreamland/area51-launcher#info=devDependencies) 
+[![Dependency Status](https://david-dm.org/ProjectDreamland/launcher.svg)](https://david-dm.org/ProjectDreamland/launcher) 
+[![devDependency Status](https://david-dm.org/ProjectDreamland/launcher/dev-status.svg)](https://david-dm.org/ProjectDreamland/launcher#info=devDependencies) 
 [![license](https://img.shields.io/badge/license-GPLv3-brightgreen.svg)](LICENSE) 
 
 

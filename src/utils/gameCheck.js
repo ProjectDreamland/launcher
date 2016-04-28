@@ -25,7 +25,7 @@ export default class Checker extends EventEmitter {
 		this.queue = async.queue((file, next) => this.checkFileSync(file)
 			.then(next)
 			.catch(err => {
-				console.error(err)
+				console.error("Error", err)
 				next()
 			}))
 
@@ -70,11 +70,10 @@ export default class Checker extends EventEmitter {
 					}
 					this.askToUpdate().then(canupdate => {
 						if (canupdate) {
-
 							return this.downloadUpdatedFile(filePath, hash)
 								.then(resolve)
 								.catch(reject)
-						} else return reject()
+						} else return reject("Not updating")
 					})
 				})
 		})
@@ -82,7 +81,6 @@ export default class Checker extends EventEmitter {
 
 	verifyFile(filepath, hash) {
 		return new Promise(resolve => {
-
 			if (!fs.existsSync(path.dirname(filepath))){
 				mkdirp.sync(path.dirname(filepath))
 				return resolve(false)
